@@ -13,7 +13,7 @@ int main()
     setlocale(LC_ALL, "");
 
     // Declares variables
-    int cont, cont_juror;
+    int cont, cont_juror, equal_averages, winner;
     char cpfs[n_projects][n_cpf];
     char urls[n_projects][50]; // Implementar alocação dinamica
     float judge1[n_projects];
@@ -21,7 +21,6 @@ int main()
     float judge3[n_projects];
     float average[n_projects];
     float high_average;
-    float equal_averages[n_projects];
 
     // Add project data
     for (cont = 1; cont <= n_projects; cont++)
@@ -65,15 +64,57 @@ int main()
         }
     }
 
-    // Display winner data
-    cout << "\nWinner(s) with average " << high_average << " is/are:" << endl;
+    // Displays the overall result of all projects
+    cout << "\nOverall result of the projects:" << endl;
+    for (cont = 0; cont <= n_projects - 1; cont++)
+    {
+        cout << "\nProject " << cont + 1 << ":" << endl;
+        cout << "Avarage: " << average[cont] << endl;
+        cout << "Cpf: " << cpfs[cont] << endl;
+        cout << "Url: " << urls[cont] << endl;
+    }
+
+    // Check if there was a tie
+    equal_averages = 0;
     for (cont = 0; cont <= n_projects - 1; cont++)
     {
         if (average[cont] == high_average)
         {
-            cout << "\nProject " << cont + 1 << ":" << endl;
-            cout << "Cpf: " << cpfs[cont] << endl;
-            cout << "Url: " << urls[cont] << endl;
+            equal_averages++;
+        }
+    }
+
+    // Display winner data
+    if (equal_averages > 1)
+    {
+        cout << "\nIt was a draw! " << equal_averages << " projects scored " << high_average << endl;
+        for (cont = 0; cont <= n_projects - 1; cont++)
+        {
+            if (average[cont] == high_average)
+            {
+                cout << "\nProject " << cont + 1 << ":" << endl;
+                cout << "Cpf: " << cpfs[cont] << endl;
+                cout << "Url: " << urls[cont] << endl;
+            }
+        }
+        cout << "Gentlemen judges, enter the number of the winning project." << endl;
+        cin >> winner;
+        cout << "\nThe winning project was the " << winner << "!" << endl;
+        cout << "\nProject " << winner << ":" << endl;
+        cout << "Cpf: " << cpfs[(winner - 1)] << endl;
+        cout << "Url: " << urls[(winner - 1)] << endl;
+    }
+    else
+    {
+        for (cont = 0; cont <= n_projects - 1; cont++)
+        {
+            if (average[cont] == high_average)
+            {
+                cout << "the winning project was the " << cont << endl;
+                cout << "\nProject " << cont + 1 << ":" << endl;
+                cout << "Cpf: " << cpfs[cont] << endl;
+                cout << "Url: " << urls[cont] << endl;
+            }
         }
     }
 }
