@@ -11,7 +11,8 @@ using namespace std;
 struct participant
 {
     char name[50];
-    char cpf[15] = "0";
+    //char cpf[15] = "0";
+    int cpf = 0;
 };
 
 struct project
@@ -51,9 +52,9 @@ int main()
             cout << "Name of the participant: ";
             cin.getline(projects[cont_n_participants].type_participant[cont_n_participants].name, 50);
             cout << "CPF of the participant: ";
-            //cin >> projects[cont_n_projects].type_participant[cont_n_participants].cpf;
-            //cin.ignore();
-            cin.getline(projects[cont_n_projects].type_participant[cont_n_participants].cpf, 15);
+            cin >> projects[cont_n_projects].type_participant[cont_n_participants].cpf;
+            cin.ignore();
+            //cin.getline(projects[cont_n_projects].type_participant[cont_n_participants].cpf, 15);
             cont_n_participants = cont_n_participants + 1;
             if (cont_n_participants < n_participants)
             {
@@ -158,7 +159,7 @@ int main()
         {
             if (projects[winner - 1].type_participant[cont_for].cpf != 0)
             {
-                cout << "Members" << cont_for + 1 << ":" << endl;
+                cout << "Member " << cont_for + 1 << ":" << endl;
                 cout << "Name:" << projects[winner - 1].type_participant[cont_for].name << endl;
                 cout << "Cpf:" << projects[winner - 1].type_participant[cont_for].cpf << endl;
             }
@@ -179,9 +180,9 @@ int main()
                 cout << "Avarage grade: " << projects[cont_for].avarage << endl;
                 for (cont_for = 0; cont_for <= n_projects - 1; cont_for++)
                 {
-                    if (strcmp(projects[cont_for].type_participant[cont_for].cpf, "0") != 0)
+                    if (projects[cont_for].type_participant[cont_for].cpf != 0) // strcmp(projects[cont_for].type_participant[cont_for].cpf, "0") != 0
                     {
-                        cout << "\nMembers " << cont_for + 1 << ":" << endl;
+                        cout << "\nMember " << cont_for + 1 << ":" << endl;
                         cout << "Name: " << projects[cont_for].type_participant[cont_for].name << endl;
                         cout << "Cpf: " << projects[cont_for].type_participant[cont_for].cpf << endl;
                     }
