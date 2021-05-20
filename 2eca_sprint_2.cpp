@@ -11,7 +11,7 @@ using namespace std;
 struct participant
 {
     char name[50];
-    int cpf;
+    char cpf[15] = "0";
 };
 
 struct project
@@ -50,22 +50,15 @@ int main()
         {
             cout << "Name of the participant: ";
             cin.getline(projects[cont_n_participants].type_participant[cont_n_participants].name, 50);
-            cout << "CPF of the participant (only digits): ";
-            cin >> projects[cont_n_projects].type_participant[cont_n_participants].cpf;
-            cin.ignore();
+            cout << "CPF of the participant: ";
+            //cin >> projects[cont_n_projects].type_participant[cont_n_participants].cpf;
+            //cin.ignore();
+            cin.getline(projects[cont_n_projects].type_participant[cont_n_participants].cpf, 15);
             cont_n_participants = cont_n_participants + 1;
             if (cont_n_participants < n_participants)
             {
                 cout << "Type 'yes' to register another participant: ";
                 cin.getline(controller_n_participants, n_participants);
-            }
-
-            if ((strcmp(controller_n_participants, "yes") != 0) && (cont_n_participants < n_participants))
-            {
-                for (cont_for = cont_n_participants; cont_for < n_participants; cont_for++)
-                {
-                    projects[cont_n_projects].type_participant[cont_for].cpf = 0;
-                }
             }
         } while ((strcmp(controller_n_participants, "yes") == 0) && (cont_n_participants < n_participants));
 
@@ -94,7 +87,7 @@ int main()
     cout << " \n--- Result of projects ---" << endl;
     for (cont_for = 0; cont_for < cont_n_projects; cont_for++)
     {
-        cout << "Project " << cont_for << ":" << endl;
+        cout << "\nProject " << cont_for + 1 << ":" << endl;
         cout << "Name:" << projects[cont_for].name << endl;
         cout << "Avarage:" << projects[cont_for].avarage << endl;
     };
@@ -113,23 +106,25 @@ int main()
         }
     }
 
-    // Add 0.5 to the average of the 5 projects with the least investment
-    for (cont_for = 0; cont_for < 4; cont_for++)
+    //Add 0.5 to the average of the 5 projects with the least investment
+    for (cont_for = 0; cont_for <= cont_n_projects - 1; cont_for++)
     {
         projects[cont_for].avarage = projects[cont_for].avarage + 0.5;
         if (projects[cont_for].avarage > 10)
+        {
             projects[cont_for].avarage = 10;
+        }
     };
 
     // Discover the high avarage
-    for (cont_for = 0; cont_for < cont_n_projects - 1; cont_for++)
+    for (cont_for = 0; cont_for <= cont_n_projects - 1; cont_for++)
     {
         if (projects[cont_for].avarage > high_avarage)
             high_avarage = projects[cont_for].avarage;
     }
 
     // Check if there was a tie
-    for (cont_for = 0; cont_for <= n_projects - 1; cont_for++)
+    for (cont_for = 0; cont_for <= cont_n_projects - 1; cont_for++)
     {
         if (projects[cont_for].avarage == high_avarage)
             equal_averages++;
@@ -152,20 +147,20 @@ int main()
         }
         cout << "\nGentlemen judges, enter the number of the winning project: " << endl;
         cin >> winner;
-        cout << "\nThe winning project was the " << projects[winner].name << " !" << endl;
-        cout << "Url: " << projects[winner].url << endl;
-        cout << "Requested Investment: " << projects[winner].investment << endl;
-        cout << "Note 1: " << projects[winner].note_1 << endl;
-        cout << "Note 2: " << projects[winner].note_2 << endl;
-        cout << "Note 3: " << projects[winner].note_3 << endl;
-        cout << "Avarage grade: " << projects[winner].avarage << endl;
+        cout << "\nThe winning project was the " << projects[winner - 1].name << " !" << endl;
+        cout << "Url: " << projects[winner - 1].url << endl;
+        cout << "Requested Investment: " << projects[winner - 1].investment << endl;
+        cout << "Note 1: " << projects[winner - 1].note_1 << endl;
+        cout << "Note 2: " << projects[winner - 1].note_2 << endl;
+        cout << "Note 3: " << projects[winner - 1].note_3 << endl;
+        cout << "Avarage grade: " << projects[winner - 1].avarage << endl;
         for (cont_for = 0; cont_for <= n_projects - 1; cont_for++)
         {
-            if (projects[winner].type_participant[cont_for].cpf != 0)
+            if (projects[winner - 1].type_participant[cont_for].cpf != 0)
             {
-                cout << "Participant" << cont_for + 1 << ":" << endl;
-                cout << "Name:" << projects[winner].type_participant[cont_for].name << endl;
-                cout << "Cpf:" << projects[winner].type_participant[cont_for].cpf << endl;
+                cout << "Members" << cont_for + 1 << ":" << endl;
+                cout << "Name:" << projects[winner - 1].type_participant[cont_for].name << endl;
+                cout << "Cpf:" << projects[winner - 1].type_participant[cont_for].cpf << endl;
             }
         }
     }
@@ -176,7 +171,7 @@ int main()
             if (projects[cont_for].avarage == high_avarage)
             {
                 cout << "\nThe winning project was the " << projects[cont_for].name << " !" << endl;
-                cout << "Url: " << projects[cont_for].url << endl;
+                cout << "\nUrl: " << projects[cont_for].url << endl;
                 cout << "Requested Investment: " << projects[cont_for].investment << endl;
                 cout << "Note 1: " << projects[cont_for].note_1 << endl;
                 cout << "Note 2: " << projects[cont_for].note_2 << endl;
@@ -184,11 +179,11 @@ int main()
                 cout << "Avarage grade: " << projects[cont_for].avarage << endl;
                 for (cont_for = 0; cont_for <= n_projects - 1; cont_for++)
                 {
-                    if (projects[cont_for].type_participant[cont_for].cpf != 0)
+                    if (strcmp(projects[cont_for].type_participant[cont_for].cpf, "0") != 0)
                     {
-                        cout << "Participant" << cont_for + 1 << ":" << endl;
-                        cout << "Name:" << projects[cont_for].type_participant[cont_for].name << endl;
-                        cout << "Cpf:" << projects[cont_for].type_participant[cont_for].cpf << endl;
+                        cout << "\nMembers " << cont_for + 1 << ":" << endl;
+                        cout << "Name: " << projects[cont_for].type_participant[cont_for].name << endl;
+                        cout << "Cpf: " << projects[cont_for].type_participant[cont_for].cpf << endl;
                     }
                 }
             }
