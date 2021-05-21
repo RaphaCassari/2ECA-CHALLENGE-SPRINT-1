@@ -1,3 +1,9 @@
+/*
+
+By: Raphael Cassari Benedicto  RM:85454
+
+*/
+
 #include <iostream>
 #include <cstring>
 #include <locale>
