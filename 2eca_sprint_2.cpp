@@ -7,16 +7,17 @@ using namespace std;
 
 #define n_projects 3     // Number os projects one less
 #define n_participants 4 // Number of participants per project
+#define n_character 50   // Number of characteres default for input string
 
 struct participant
 {
-    char name[50];
+    char name[n_character];
     int cpf = 0;
 };
 
 struct project
 {
-    char name[50], url[50];
+    char name[n_character], url[n_character];
     struct participant type_participant[n_participants];
     float investment, note_1, note_2, note_3, avarage;
 };
@@ -38,9 +39,9 @@ int main()
         cont_n_participants = 0;
 
         cout << "\ntype the name of the project: ";
-        cin.getline(projects[cont_n_projects].name, 50);
+        cin.getline(projects[cont_n_projects].name, n_character);
         cout << "Enter the project URL:";
-        cin.getline(projects[cont_n_projects].url, 50);
+        cin.getline(projects[cont_n_projects].url, n_character);
         cout << "Enter the investment amount for the project:";
         cin >> projects[cont_n_projects].investment;
         cin.ignore();
@@ -49,11 +50,10 @@ int main()
         do
         {
             cout << "Name of the participant: ";
-            cin.getline(projects[cont_n_participants].type_participant[cont_n_participants].name, 50);
+            cin.getline(projects[cont_n_participants].type_participant[cont_n_participants].name, n_character);
             cout << "CPF of the participant: ";
             cin >> projects[cont_n_projects].type_participant[cont_n_participants].cpf;
             cin.ignore();
-            //cin.getline(projects[cont_n_projects].type_participant[cont_n_participants].cpf, 15);
             cont_n_participants = cont_n_participants + 1;
             if (cont_n_participants < n_participants)
             {
