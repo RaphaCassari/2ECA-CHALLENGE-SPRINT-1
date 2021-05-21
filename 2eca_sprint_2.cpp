@@ -11,7 +11,6 @@ using namespace std;
 struct participant
 {
     char name[50];
-    //char cpf[15] = "0";
     int cpf = 0;
 };
 
@@ -180,7 +179,7 @@ int main()
                 cout << "Avarage grade: " << projects[cont_for].avarage << endl;
                 for (cont_for = 0; cont_for <= n_projects - 1; cont_for++)
                 {
-                    if (projects[cont_for].type_participant[cont_for].cpf != 0) // strcmp(projects[cont_for].type_participant[cont_for].cpf, "0") != 0
+                    if (projects[cont_for].type_participant[cont_for].cpf != 0)
                     {
                         cout << "\nMember " << cont_for + 1 << ":" << endl;
                         cout << "Name: " << projects[cont_for].type_participant[cont_for].name << endl;
